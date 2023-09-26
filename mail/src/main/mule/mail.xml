@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:email="http://www.mulesoft.org/schema/mule/email"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="25405390-2fe5-4270-89b8-b37439256dbf" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="a14305d2-fd07-4e3e-9b07-2c84184ce713" >
+		<email:smtp-connection host="smtp.gmail.com" port="993" user="thisismyuncleshop@gmail.com" password="Rollno@91" />
+	</email:smtp-config>
+	<flow name="mailFlow" doc:id="678d91a2-9713-4091-ac39-b90e5d247de5" >
+		<http:listener doc:name="Listener" doc:id="96852910-326c-4a5a-9440-152c424cc266" config-ref="HTTP_Listener_config" path="/mail"/>
+		<email:send doc:name="Send" doc:id="cc8e4c60-5b03-4991-8db3-a9393089c667" config-ref="Email_SMTP" fromAddress="thisismyuncleshop@gmail.com" subject="Test Mail">
+			<email:to-addresses >
+				<email:to-address value="khasim@apicentrics.com" />
+			</email:to-addresses>
+			<email:body >
+				<email:content ><![CDATA[Hello Hi ]]></email:content>
+			</email:body>
+		</email:send>
+	</flow>
+</mule>
